@@ -1,0 +1,80 @@
+<%@page import="br.edu.ifsp.eventos.classes.Inscrito"%>
+<%@page import="br.edu.ifsp.eventos.classes.Instituicao"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="br.edu.ifsp.eventos.classes.util.Hash"%>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags/" %>
+<%@taglib prefix="form" tagdir="/WEB-INF/tags/form" %>
+<%@taglib prefix="lista" tagdir="/WEB-INF/tags/listaEdit" %>
+<% Inscrito usuarioLogado = (Inscrito) session.getAttribute("usuarioLogado");
+    if (usuarioLogado != null) {
+        if (usuarioLogado instanceof Instituicao) {
+%>
+<script>
+    function ss(tag){
+        closePop("#admInicio");
+        closePop("#cadInstituicao");
+        closePop("#formInstituicao");
+        closePop("#cadInscritos");
+        closePop("#cadOpcoes");
+        closePop("#formNovoInscrito");
+        if (tag == "#null") tag = "#admInicio";
+        showPop(tag);
+    }
+   
+</script>
+<div class="conteudo adminCad">
+    <%
+        if (request.getParameter("erro") != null) {
+        if (request.getParameter("erro").equals("cadastroInstituicao")) {
+            
+    %>
+    <tag:mensagemErro visible="true" id="erroinstituicao" titulo="Erro" mensagem="Erro no cadastro da instituição" classCss="mensagemErro" />
+    <%        }}
+    %>
+    <h2>Sua instituição</h2>
+        
+    <ul class="adLst">
+        <li><a href="javascript:ss('#admInicio')">Inicio</a></li>
+        <li><a href="javascript:ss('#formInstituicao')">Informações da instituição</a></li>
+        <li><a href="javascript:ss('#cadInscritos')">Inscritos</a>
+            <ul>
+                <li><a href="javascript:ss('#formNovoInscrito')">Novo inscrito</a></li>
+            </ul>
+        </li>
+        <!--<li><a href="javascript:ss('#cadOpcoes')">Opções</a></li>        -->
+    </ul>
+    
+    
+    <div class="cad" id="admInicio">
+        <h3>Configure</h3>
+        <div class="tool toolInst">
+            <h4><a href="javascript:ss('#formInstituicao')">Instituição</a></h4>
+            <ul>
+                <li><a href="javascript:ss('#formInstituicao')">Informações da instituição</a></li>
+            </ul>
+        </div>
+        
+        <div class="tool toolUser">
+            <h4><a href="javascript:ss('#cadInscritos')">Inscritos</a></h4>
+            <ul>
+                <li><a href="javascript:ss('#formNovoInscrito')">Nova pessoa</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="cad" id="formInstituicao" style="display: none" >
+        <h3>Sua instituiçao</h3>
+        <form:Instituicao instituicao="${usuarioLogado}" hash="<%=Hash.gerarMD5(Calendar.getInstance().getTime().toString())%>" />        
+    </div>
+    <div class="cad" id="cadInscritos" style="display: none">
+        <h3>Inscritos</h3>
+        <lista:Inscritos instituicao="${usuarioLogado}" />
+    </div>
+    <div class="cad" id="formNovoInscrito" style="display: none" >
+        <h3>Nova pessoa</h3>
+        <form:Individuo  paramUrl="pagina=admin_i&secao=cadInscrito" preffix="ii" instituicao="${usuarioLogado}" hash="<%= Hash.gerarMD5(Calendar.getInstance().getTime().toString())%>" />         
+    </div>
+    
+</div>
+    <% } 
+               }%>

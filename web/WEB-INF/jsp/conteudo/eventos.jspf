@@ -1,0 +1,279 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="br.edu.ifsp.eventos.classes.dao.EventoDAO"%>
+<%@page import="br.edu.ifsp.eventos.classes.dao.DAO"%>
+<%@page import="java.lang.Object"%>
+<%@page import="br.edu.ifsp.eventos.classes.Palestrante"%>
+<%@page import="br.edu.ifsp.eventos.classes.Inscrito"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ListIterator"%>
+<%@page import="br.edu.ifsp.eventos.classes.Evento"%>
+<% Inscrito usuarioLogado = (Inscrito) session.getAttribute("usuarioLogado");
+
+%> 
+<script>
+    function mostrarPagina(pagina){
+        $('.paginaNav').hide();
+        $('#paginaEventos'+pagina).fadeIn();            
+            
+    }
+    function quemVai(eventoId, data){
+        var part = "<br /><strong>Inscritos:</strong><ul>";
+        var total = (data.instituicao_total+data.pessoa_total)
+        if (total==0){
+            part+= "<li>(Nenhum inscrito)</li>"
+        } else {
+
+            for (i = 0 ; i< data.instituicao_total;i++){
+                part+= "<li>"+ data.instituicao[i] + "</li>";
+            }
+            for (i = 0 ; i< data.pessoa_total;i++){
+                part+= "<li>"+ data.pessoa[i] + "</li>";
+            }
+            part += "</ul>";
+
+            
+
+                    
+            if ($("#quemVaiEv"+eventoId).css("display")=="none"){
+                if (total>0){
+                    $("#sqv"+eventoId).show()    
+                } else {
+                    $("#sqv"+eventoId).hide()
+                }           
+            }
+        }
+        $("#sqv"+eventoId).html("Inscritos ("+total+")")
+        $("#quemVaiEv"+eventoId).html(part);
+
+/*
+        if (data.voce == "1"){
+            part = "Você ";
+        }
+        if ((data.instituicao_total+data.pessoa_total)>0){
+            part += " e mais ";
+        } else {
+            part += " irá participar";
+        }
+        if (data.instituicao_total == 1 && data.pessoa_total == 0){
+            if (data.voce == 1) part +=  "1 instituição irão participar";
+            else part +=  "1 instituição irá participar";
+        } else {
+            if (data.instituicao_total > 1 && data.pessoa_total == 0){
+                part += data.pessoa_total + " instituições irão participar";
+            } else {
+               if (data.instituicao_total == 0 && data.pessoa_total == 1){
+                if (data.voce == 1) part += "1 pessoa irão participar";
+                else "1 pessoa irá participar";
+               }else if (data.instituicao_total == 0 && data.pessoa_total > 1){
+                 part +=  "  pessoas irão participar";  
+               }else {
+                 if (data.instituicao_total == 1){
+                    part += "1 instituição " ;
+                 } else if (data.instituicao_total > 1){
+                    part += data.instituicao_total+ " instituições " ;
+                 }  
+               }            
+        }
+        $("#participarEv"+eventoId).html(part);
+
+        
+       
+
+    }*/
+    }
+    function participar(idEvento){
+            
+        //$('#linkDesistirEvId'+idEvento).fadeIn(500)    
+        $('#statusEv'+idEvento).html('Aguarde...');
+        $.ajax({
+            url: "ParticiparEvento?id="+idEvento+"&participar=sim",
+            context: document.body,
+            success: function(data) {
+                $('#statusEv'+idEvento).html('');            
+                $('#linkParticiparId'+idEvento).hide(1,function(){$('#linkDesistirEvId'+idEvento).show()} );
+                // $('#linkDesistirEvId'+idEvento).fadeIn(500);
+                quemVai(idEvento,data);
+                
+            },
+            error: function(data) {
+                $('#linkDesistirEvId'+idEvento).fadeIn(500) 
+                $('#statusEv'+idEvento).html('Falha ao se cadastrar'); 
+            }
+            
+        });
+    }
+        
+
+    function desistir (idEvento){
+        //$('#linkDesistirEvId'+idEvento).hide();
+        $('#statusEv'+idEvento).html('Aguarde...');
+        $.ajax({
+            url: "ParticiparEvento?id="+idEvento+"&participar=nao",
+            context: document.body,
+            success: function(data) {
+                $('#statusEv'+idEvento).html('');  
+                $('#linkDesistirEvId'+idEvento).hide(1,function(){$('#linkParticiparId'+idEvento).show()} );
+                
+                //$('#linkParticiparId'+idEvento).fadeIn(500);  
+                quemVai(idEvento,data);
+            },
+            error: function(data) {
+                $('#linkDesistirEvId'+idEvento).hide();
+                $('#statusEv'+idEvento).html('Falha!');         
+                    
+            }            
+        });
+    }
+</script>
+
+
+
+<div class="conteudo">
+
+
+
+
+    <h2>Eventos</h2>
+    <%
+        int contagem = 0;
+        int p = 2;
+
+        ArrayList<Evento> listaEventos = Evento.getListaEventos(false);
+        if (listaEventos.size() == 0) {
+    %>
+    <h3>Não há eventos.</h3>
+    <%    } else {
+        int aba;
+        try {
+            aba = Integer.parseInt(request.getParameter("aba"));
+        } catch (Exception ex) {
+            aba = 1;
+        }
+        if (aba == 1) {
+            out.println("<div class=\"paginaNav\" id=\"paginaEventos1\" >");
+        } else {
+    %>
+
+
+
+    <div class="paginaNav" id="paginaEventos1" style="display: none" >
+        <%            }
+            for (Evento e : listaEventos) {
+                contagem++;
+                if (contagem % 4 == 0) {
+                    if (aba == p) {
+                        out.println("</div><div class=\"paginaNav\" id=\"paginaEventos" + p + "\" >");
+                    } else {
+        %>
+    </div><div class="paginaNav" style="display: none" id="paginaEventos<%= p%>" ><%
+            }
+            p++;
+            contagem = 1;
+        }
+        %>
+
+
+        <div class="eventoItem">
+            <div class="imagem">
+                <img src="/eventos/img?c=evento&sx=200&id=<%=  e.getId()%>" alt="<%=  e.getNome()%>" />
+            </div>
+            <div class="eDescricao">
+                <h3>
+                    <%=  e.getNome()%>
+                </h3>
+
+                <div class="descricao">
+                    <%=  e.getDescricao()%>
+                </div>
+                <div class="detalhes">                
+                    <p class="detalhe">
+                        <strong>Palestrante: </strong><a href="?pagina=palestrante&id=<%=  e.getPalestrante().getId()%>" ><%=  e.getPalestrante().getNome()%></a>
+                    </p>
+                    <p class="detalhe">
+                        <strong>Data: </strong><%=  e.getDataSdf()%>
+                    </p>
+                    <p class="detalhe">
+                        <strong>Horário: </strong><%=  e.getHorarioSdf()%>
+                    </p>
+                    <p class="detalhe">
+                        <strong>Vagas: </strong><%=  e.getVagas()%> 
+                    </p>
+                    <%
+                    ArrayList<Inscrito> listaInscritos =  e.getListaInscritos();
+                            
+                    if (usuarioLogado== null){
+                        %>
+                    <div id="linkParticipar" class="detalhe">
+                        <a  class="participar" href="?pagina=cadastro">Participar deste evento (clique aqui para cadastrar)</a>
+                    </div>
+                    <% } else {%>
+                     
+                    <div class="linkParticipar" id="linkParticipar<%=  e.getId()%>" class="detalhe">
+                        <span style="display: none" class="statusEv" id="statusEv<%=  e.getId()%>"></span>
+                        <a onclick="participar('<%=  e.getId()%>'); return false" class="participar" id="linkParticiparId<%=  e.getId()%>" href="ParticiparEvento?id=<%=  e.getId()%>&participar=sim">
+                            Inscrever para este evento</a>
+                        <a onclick="desistir('<%=  e.getId()%>'); return false" class="desistir" id="linkDesistirEvId<%=  e.getId()%>" href="ParticiparEvento?id=<%=  e.getId()%>&participar=nao" style="display: none">
+                            <strong style="color: #b77c4f " >Inscrição feita! (Desistir)</strong></a>
+                         - 
+                        <a href="#" 
+                           
+                           id="sqv<%=  e.getId()%>" 
+                           onclick="$('#quemVaiEv<%=  e.getId()%>').slideDown(); return false">
+                            Inscritos (<%=  listaInscritos.size() %>)</a>
+                    </div>
+                    
+                    <script>
+                    <%
+                        try{  
+                            EventoDAO dao = new EventoDAO();
+                            if (dao.checarParticipacao(e, usuarioLogado)) {
+                        %>
+                            $("#linkParticiparId<%=  e.getId()%>").hide();
+                            $("#linkDesistirEvId<%=  e.getId()%>").show(); 
+                        <%
+                            }
+                          }
+                          catch(Exception ex){
+                          }
+                                                          
+                            if (listaInscritos.size()!=0){
+                                out.println("$(\"#sqv"+  e.getId()+"\").show()"); 
+                            }
+
+                        %>
+
+                    </script>
+                    <div style="display:none;"  class="detalhe quemVai" id="quemVaiEv<%=  e.getId()%>" >
+                        <strong>Inscritos: </strong>
+
+                        <ul>
+                            <%
+                                for (Inscrito ic : listaInscritos) {
+                                    out.println(" <li>" + ic.getNome() + "</li>");
+                                }
+                            %>
+                        </ul>
+                    
+                    </div>
+                    <% } %>
+                </div>  
+            </div>
+        </div>
+
+        <% }
+
+
+            }%>
+    </div>
+    <div class="navEv">
+        <%
+            for (int i = 1; i < p; i++) {
+        %><a id="mp[<%= i%>]" href="?pagina=eventos&aba=<%= i%>" onclick="mostrarPagina('<%= i%>'); return false"><%= i%></a> <%
+            }
+        %>
+    </div> 
+
+
+
+
+</div>

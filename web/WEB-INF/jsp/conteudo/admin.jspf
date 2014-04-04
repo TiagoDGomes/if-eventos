@@ -1,0 +1,172 @@
+<%@page import="br.edu.ifsp.eventos.classes.web.sistema.Sistema"%>
+<%@page import="br.edu.ifsp.eventos.classes.Evento"%>
+<%@page import="br.edu.ifsp.eventos.classes.Palestrante"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.io.FileReader"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.File"%>
+<%@page import="br.edu.ifsp.eventos.classes.Individuo"%>
+<%@page import="br.edu.ifsp.eventos.classes.Inscrito"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="br.edu.ifsp.eventos.classes.util.Hash"%>
+<%@page import="br.edu.ifsp.eventos.classes.Instituicao"%>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags/" %>
+<%@taglib prefix="form" tagdir="/WEB-INF/tags/form" %>
+<%@taglib prefix="lista" tagdir="/WEB-INF/tags/listaEdit" %>
+<% Inscrito usuarioLogado = (Inscrito) session.getAttribute("usuarioLogado");
+    if (usuarioLogado != null) {
+        if (usuarioLogado.isAdministrador()) {
+%>
+<script>
+    function ss(tag){
+        closePop("#admInicio");
+        closePop("#formPaginaInicial");
+        closePop("#cadInstituicao");
+        closePop("#formNovaInstituicao");
+        closePop("#cadPalestrantes");
+        closePop("#formNovoPalestrante");
+        closePop("#cadEventos");
+        closePop("#formNovoEvento");
+        closePop("#formPaginaCSS");
+        closePop("#cadInscritos");
+        closePop("#cadOpcoes");
+        if (tag == "#null") tag = "#admInicio";
+        showPop(tag);
+    }
+   
+    function excluir(oq, id){
+        var msg;
+        switch(oq){
+            case 'it': msg = "Deseja realmente excluir esta instituição?"; break;
+            case 'id': msg = "Deseja realmente excluir esta pessoa?"; break;
+            case 'ev': msg = "Deseja realmente excluir este evento?"; break;
+            case 'pl': msg = "Deseja realmente excluir este palestrante e TODOS os seus eventos?"; break;
+        }
+        if (confirm(msg)){
+            location.href = "xi?tipo="+oq+"&id="+id;
+        }
+    }
+</script>
+
+
+<div class="conteudo adminCad">
+    <%
+        if (request.getParameter("erro") != null) {
+        if (request.getParameter("erro").equals("cadastroInstituicao")) {
+            String msgErro = "Erro no cadastro da instituição. <ul>";
+            if (request.getParameter("nome")!=null){
+                msgErro.concat("<li>Campo nome vazio</li>");
+            }
+            msgErro.concat("</ul>");
+    %>
+    <tag:mensagemErro visible="true" id="erroinstituicao" titulo="Erro" mensagem="<%= msgErro %>" classCss="mensagemErro" />
+    <%        }}
+    %>
+    <h2>Painel de controle - Administração</h2>
+
+    <ul class="adLst">
+        <li><a href="javascript:ss('#admInicio')">Início</a></li>
+        <li><a href="javascript:ss('#cadInstituicao')">Instituições</a>
+            <ul>
+                <li><a href="javascript:ss('#formNovaInstituicao')">Nova instituição</a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:ss('#cadPalestrantes')">Palestrantes</a>
+            <ul>
+                <li><a href="javascript:ss('#formNovoPalestrante')">Novo palestrante</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:ss('#cadEventos')">Eventos</a>
+            <ul>
+                <li><a href="javascript:ss('#formNovoEvento')">Novo evento</a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:ss('#cadInscritos')">Inscritos</a></li>
+        <li><a href="javascript:ss('#cadOpcoes')">Opções</a></li>        
+    </ul>
+    <div class="cad" id="admInicio">
+        <h3>Configure o site</h3>
+
+        <div class="tool toolInst">
+            <h4><a href="javascript:ss('#cadInstituicao')">Instituição</a></h4>
+            <ul>
+                <li><a href="javascript:ss('#formNovaInstituicao')">Adicionar instituição</a></li>
+                <li><a href="javascript:ss('#cadInstituicao')">Gerenciar instituições cadastradas</a></li> 
+                <li><a href="javascript:ss('#cadInstituicao')">Excluir instituição</a></li>
+            </ul>
+        </div>
+        <div class="tool toolPal">
+            <h4><a href="javascript:ss('#cadPalestrantes')">Palestrantes</a></h4>
+            <ul>
+                <li><a href="javascript:ss('#formNovoPalestrante')">Adicionar palestrante</a></li>
+                <li><a href="javascript:ss('#cadPalestrantes')">Gerenciar palestrantes</a></li> 
+            </ul>
+        </div>
+        <div class="tool toolEv">
+            <h4><a href="javascript:ss('#cadEventos')">Eventos</a></h4>
+            <ul>
+                <li><a href="javascript:ss('#formNovoEvento')">Adicionar evento</a></li>
+                <li><a href="javascript:ss('#cadEventos')">Gerenciar eventos</a></li> 
+            </ul>
+        </div>
+        <div class="tool toolOp">
+            <h4><a href="javascript:ss('#cadOpcoes')">Opções</a></h4>
+            <ul>
+                <!--<li><a href="javascript:ss('#formPaginaInicial')">Editar a página inicial</a></li>
+                <li><a href="javascript:ss('#formPaginaCSS')">Editar CSS do site</a></li>-->
+                <li><a href="javascript:ss('#cadOpcoes')">Opções gerais</a></li>   
+            </ul>
+        </div>
+    </div>
+    <div class="cad fpi" id="formPaginaInicial"  style="display: none">
+        <h3>Página inicial</h3> 
+        <form:EditarArquivo arquivo="WEB-INF/jsp/conteudo/inicio.jspf" />
+    </div>
+    <div class="cad fpi" id="formPaginaCSS"  style="display: none">
+        <h3>Arquivo CSS</h3>         
+        <form:EditarArquivo arquivo="templates/greenbook/css/style1.css" />
+    </div>
+    <div class="cad" id="cadInstituicao" style="display: none">
+        <h3>Lista de instituições cadastradas</h3>
+        <lista:Instituicoes />
+    </div>
+    <div class="cad" id="formNovaInstituicao" style="display: none" >
+        <h3>Nova instituiçao</h3>
+        <form:Instituicao hash="<%=Hash.gerarMD5(Calendar.getInstance().getTime().toString())%>" />        
+    </div>
+    <div class="cad" id="cadPalestrantes" style="display: none">
+        <h3>Lista de palestrantes</h3>        
+        <lista:Palestrantes />
+    </div>
+    <div class="cad" id="formNovoPalestrante" style="display: none">
+        <h3>Novo palestrante</h3>
+        <form:Palestrante />
+    </div>
+    <div class="cad" id="cadEventos" style="display: none">
+        <h3>Lista de eventos</h3>
+        <lista:Eventos />
+    </div> 
+    <div class="cad" id="formNovoEvento" style="display: none">
+        <h3>Novo evento</h3>
+        <form:Evento />  
+    </div>
+    <div class="cad" id="cadInscritos" style="display: none">
+        <h3>Inscritos</h3>
+        <lista:Inscritos />
+    </div>
+    <div class="cad" id="cadOpcoes" style="display: none">
+        <h3>Opções</h3>
+        <form:Opcoes />  
+    </div>
+</div>
+<script>
+    ss("#<%= request.getParameter("secao")%>");   
+</script>
+<%        } else {
+            out.println("<h2>Você não tem permissão para acessar esta página.</h2>");
+       }
+    } else{
+    out.println("<h2>Você não tem permissão para acessar esta página!</h2>");
+    }
+%>

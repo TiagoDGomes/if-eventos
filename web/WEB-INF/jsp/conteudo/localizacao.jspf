@@ -1,0 +1,17 @@
+
+<div id="mainLocalizacao" class="conteudo">
+    <h2>Localização</h2>
+    <% if (request.getParameter("use") != null) {
+            if (request.getParameter("use").equals("bing")) {
+    %>
+
+    <div id="mapviewer">
+        <iframe id="map" Name="mapFrame" scrolling="no" width="640" height="512" frameborder="0" src="http://br.bing.com/maps/embed/?lvl=17&amp;cp=-21.96760026076487~-46.81299475135035&amp;sty=h&amp;draggable=true&amp;v=2&amp;dir=0&amp;where1=ifsp+campus+sao+joao%2C+da%2C+boa+vista&amp;nwyw=1&amp;form=LMLTEW&amp;mkt=en-us&amp;emid=49801ae4-7536-0744-99c3-80b32bb93fb0&amp;w=640&amp;h=512"></iframe><div id="LME_maplinks" style="line-height:20px;"><a id="LME_largerMap" href="http://br.bing.com/maps/?mm_embed=map&amp;cp=-21.96760026076487~-46.81299475135035&amp;lvl=17&amp;sty=h&amp;form=LMLTEW" target="_blank">View Larger Map</a>&nbsp;<a id="LME_directions" href="http://br.bing.com/maps/?mm_embed=dir&amp;cp=-21.96760026076487~-46.81299475135035&amp;rtp=~pos.-21.96760026076487_-46.81299475135035_Your+location&amp;lvl=17&amp;sty=h&amp;form=LMLTEW" target="_blank">Get Directions</a>&nbsp;<a id="LME_birdsEye" href="http://br.bing.com/maps/?mm_embed=be&amp;cp=-21.96760026076487~-46.81299475135035&amp;lvl=18&amp;sty=b&amp;form=LMLTEW" target="_blank">View Bird's Eye</a></div>
+    </div>
+
+    <% }
+    } else {%>
+    <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=d&amp;source=s_d&amp;saddr=&amp;daddr=&amp;hl=pt-BR&amp;geocode=&amp;sll=-21.96836,-46.810706&amp;sspn=0.016377,0.027874&amp;doflg=ptk&amp;mra=mr&amp;ie=UTF8&amp;ll=-21.964102,-46.811285&amp;spn=0.016378,0.027874&amp;t=h&amp;z=16&amp;iwloc=lyrftr:m,17369026390552057307,-21.967266,-46.812787&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=d&amp;source=embed&amp;saddr=&amp;daddr=&amp;hl=pt-BR&amp;geocode=&amp;sll=-21.96836,-46.810706&amp;sspn=0.016377,0.027874&amp;doflg=ptk&amp;mra=mr&amp;ie=UTF8&amp;ll=-21.964102,-46.811285&amp;spn=0.016378,0.027874&amp;t=h&amp;z=16&amp;iwloc=lyrftr:m,17369026390552057307,-21.967266,-46.812787" style="color:#0000FF;text-align:left">Exibir mapa ampliado</a></small>
+
+    <% }%>
+</div>

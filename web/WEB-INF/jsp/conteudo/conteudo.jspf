@@ -1,0 +1,16 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    switch (paginaIndex) {
+        case 0:%>
+<%@include file  = "WEB-INF/jspf/conteudo/inicio.jspf" %>
+<%
+        break;
+    case 1:%>
+<%@include file  = "WEB-INF/jspf/conteudo/eventos.jspf" %><%break;
+    case 2:%><%@include file  = "WEB-INF/jspf/conteudo/cadastro.jspf" %><%break;
+    case 3:%><%@include file  = "WEB-INF/jspf/conteudo/contato.jspf" %><%break;
+                                    case 4:%><%@include file  = "WEB-INF/jspf/conteudo/meuseventos.jspf" %><%break;
+                                        case 5:%><%@include file  = "WEB-INF/jspf/conteudo/meuscertificados.jspf" %><%break;
+
+                                        }
+%>

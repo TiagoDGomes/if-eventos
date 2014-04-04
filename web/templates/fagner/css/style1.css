@@ -1,0 +1,43 @@
+/* 
+    Document   : estilo
+    Created on : 
+    Author     : Fagner
+    Description: Estilo Fagner
+*/
+body{
+    background-color: black;
+    font-family: Lucida , "Lucida Grande", helvetica, sans-serif;
+
+}
+.mainEventos {
+    margin: 0 auto;
+    width: 1000px;
+    
+}
+#conteudo{
+    background-color: white;
+}
+.menu .principal li{
+    float: left;
+    width: 100px;
+    height: 30px;
+    list-style-type: none;
+    background-image:url(/eventos/templates/fagner/images/aba.png);
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 20px;
+
+}
+.menu .principal li a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+.menu .principal li:hover {
+    background-image:url(/eventos/templates/fagner/images/aba.png) 0 158px;
+    
+}
+
+.menu .menuInscrito {
+    clear: both;
+}

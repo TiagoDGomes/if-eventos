@@ -1,0 +1,31 @@
+.evento .imagem img {
+    height: 50px;
+    width: 50px;
+}
+.evento .imagem {
+    float: left;
+    width: 50px;
+    margin: 2px 10px 10px 5px;
+    border: 1px solid gray;
+}
+.navEv {
+    text-align: center;
+}
+table.lista {
+    width: 100%;
+    margin-bottom: 25px; 
+    border-collapse: collapse;
+}
+.formulario label ,  .formulario input, .formulario textarea, .formulario select{
+    display: inline-block;
+
+}
+
+.formulario label{
+    cursor: pointer;
+    width: 100px;
+    float: left;
+    vertical-align: middle;
+
+
+}

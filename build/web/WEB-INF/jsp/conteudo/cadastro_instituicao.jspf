@@ -1,0 +1,11 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="br.edu.ifsp.eventos.classes.util.Hash"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="br.edu.ifsp.eventos.classes.web.sistema.Pagina " %>
+<script type="text/javascript" src="/eventos/js/cadastro.cep.js"></script>
+<div id="mainCadastro" class="conteudo">
+    <h2>Cadastre sua instituição</h2>
+    <p>Para cadastrar sua instituição, envie um e-mail para <a href="mailto:">email@email.com</a> e enviaremos o login e a senha
+        para que sua instituição possa cadastrar as pessoas que participarão dos nossos eventos.
+        
+    </div>

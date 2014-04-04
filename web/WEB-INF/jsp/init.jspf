@@ -1,0 +1,97 @@
+<%@page import="br.edu.ifsp.eventos.classes.util.Hash"%>
+<%@page import="java.io.OutputStream"%>
+<%@page import="br.edu.ifsp.eventos.classes.Instituicao"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="br.edu.ifsp.eventos.classes.web.sistema.Pagina" %>
+<%@page import="br.edu.ifsp.eventos.classes.web.sistema.Sistema" %>
+<%@page import="br.edu.ifsp.eventos.classes.*" %>
+<%@page import="br.edu.ifsp.util.Util"%>
+
+<%
+    // 
+
+
+    if (Sistema.getListaPagina().isEmpty()) {
+        Sistema.novaPagina(new Pagina("Início", "inicio", "inicio.jspf"));
+        Sistema.novaPagina(new Pagina("Eventos", "eventos", "eventos.jspf"));
+        Sistema.novaPagina(new Pagina("Cadastro", "cadastro", "cadastro.jspf"));
+        Sistema.novaPagina(new Pagina("Contato", "contato", "contato.jspf"));
+        Sistema.novaPagina(new Pagina("Meus eventos", "meuseventos", "meuseventos.jspf"));
+        Sistema.novaPagina(new Pagina("Meus certificados", "meuscertificados", "meuscertificados.jspf"));
+        Sistema.novaPagina(new Pagina("Meu cadastro", "meucadastro", "cadastro.jspf"));
+        Sistema.novaPagina(new Pagina("Cadastro de instituição", "cadastro_instituicao", "cadastro_instituicao.jspf"));
+        Sistema.novaPagina(new Pagina("Localização", "localizacao", "localizacao.jspf"));
+        Sistema.novaPagina(new Pagina("Administração", "admin", "admin.jspf"));
+        Sistema.novaPagina(new Pagina("Palestrante", "palestrante", "palestrante.jspf"));
+        Sistema.novaPagina(new Pagina("Sua instituição", "admin_i", "admin_instituicao.jspf"));
+
+    }
+
+
+    // --- Criar objeto 'paginaAtual' para manipulação em outros arquivos
+    Pagina p = null;
+
+    // --- Setando paginaAtual para a pagina que o usuário está navegando
+    if (request.getParameter("pagina") == null) {
+        p = (Pagina.getPaginaPorNomeSimples("inicio"));
+    } else {
+        p = Pagina.getPaginaPorNomeSimples(request.getParameter(Pagina.argName));
+
+    }
+    if (p == null) {
+        p = (Pagina.getPaginaPorNomeSimples("inicio"));
+    }
+    session.setAttribute("paginaAtual", p);
+
+    session.setAttribute("db.Connection", Sistema.isBancoDeDadosOK());
+    if ((Boolean) session.getAttribute("db.Connection")) {
+
+
+        Instituicao ns = new Instituicao();
+        if (Instituicao.getListaInstituicao().isEmpty()) {
+            ns.setNome("IFSP Campus São João da Boa Vista");
+            ns.setCookie(new Cookie("userId", Hash.gerarMD5(String.valueOf(new Date().getTime()))));
+            ns.setEmail("adm");
+            ns.setSenha("adm");
+            ns.getEndereco().setLogradouro("Acesso Dr. João Batista Merlin");
+            ns.getEndereco().setNumero("s/n");
+            ns.getEndereco().setBairro("Jardim Itália");
+            ns.getEndereco().setCep("13872551");
+            ns.getEndereco().setCidade("São João da Boa Vista");
+            ns.getEndereco().setEstado("SP");
+            ns.setAdministrador(true);
+            Instituicao.adicionar(ns);
+        }
+
+
+
+
+
+        Inscrito u = null;
+
+        String cookieName = "userId";
+        Cookie cookies[] = request.getCookies();
+        Cookie myCookie = null;
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals(cookieName)) {
+                    myCookie = cookies[i];
+                    break;
+                }
+            }
+        }
+        try {
+            u = Inscrito.getInscritoPorCookie(myCookie);
+        } catch (Exception ex) {
+        }
+
+        session.setAttribute("usuarioLogado", u);
+
+    }
+
+
+
+
+
+%>

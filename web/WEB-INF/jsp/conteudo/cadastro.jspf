@@ -1,0 +1,80 @@
+<%@page import="br.edu.ifsp.eventos.classes.Instituicao"%>
+<%@page import="br.edu.ifsp.eventos.classes.Individuo"%>
+<%@page import="br.edu.ifsp.eventos.classes.Inscrito"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.sql.Time"%>
+<%@page import="br.edu.ifsp.eventos.classes.util.Hash"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="br.edu.ifsp.eventos.classes.web.sistema.Pagina" %>
+<%@taglib prefix="form" tagdir="/WEB-INF/tags/form" %>
+<%@taglib prefix="ev" tagdir="/WEB-INF/tags" %>
+<div id="mainCadastro" class="conteudo">
+    <h2>Cadastro</h2>
+<div class="info linkajuda">
+
+    <span>Este é um formulário para inscrever <strong>pessoas físicas.</strong><br> Caso deseja inscrever sua instituição, <%= Pagina.getPaginaPorNomeSimples("cadastro_instituicao").getLink("clique aqui")%> </span>.<br/>
+            <!--<span><a href="/eventos/?secao=cadastro&tipo=fb">Clique aqui se você quiser cadastrar via Facebook</a></span><br/>-->      
+            <br />
+        </div>
+        
+        <%
+            Individuo u = (Individuo) session.getAttribute("usuarioLogado");
+            if (u == null) {
+
+
+        %>
+        <form:Individuo  hash="<%= Hash.gerarMD5(Calendar.getInstance().getTime().toString())%>" /> 
+        <% } else if (u instanceof Individuo ){
+         %>
+        <form:Individuo usuario="<%= u%>"  hash="<%= Hash.gerarMD5(Calendar.getInstance().getTime().toString())%>" /> 
+        
+        
+        <% 
+        }
+        %>
+    </div>
+
+    
+    
+    
+<%-- Cadastro via Facebook--%>    
+ <%--
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<div class="conteudo">
+    <h2>Cadastre-se via Facebook!</h2>
+    <iframe src="https://www.facebook.com/plugins/registration?
+            client_id=228643093906938&
+            redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fecho%2F&
+            fields=name,email,location"
+            scrolling="auto"
+            frameborder="no"
+            style="border:none"
+            allowTransparency="true"
+            width="100%"
+            height="330">
+    </iframe>
+
+</div>
+ --%>
+    
+    
+    
+<%--<%@page import="br.edu.ifsp.eventos.classes.Individuo" %>
+<%@page import="br.edu.ifsp.eventos.classes.Instituicao"%>
+<%@page import="br.edu.ifsp.eventos.classes.Inscrito"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<jsp:scriptlet>
+    String cadTipo = request.getParameter("tipo");
+    if ("instituicao".equals(cadTipo)) {
+</jsp:scriptlet>
+<%@include file  = "cadastro_instituicao.jspf" %>
+<jsp:scriptlet>} else  if ("fb".equals(cadTipo)){</jsp:scriptlet>       
+<%@include file  = "cadastro_fb.jspf" %>
+<jsp:scriptlet>    }
+else  {</jsp:scriptlet>       
+<%@include file  = "cadastro_pessoa.jspf" %>
+<jsp:scriptlet>    }
+
+
+</jsp:scriptlet>--%>

@@ -1,0 +1,37 @@
+<%@page import="br.edu.ifsp.eventos.classes.Evento"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="br.edu.ifsp.eventos.classes.dao.PalestranteDAO"%>
+<%@page import="br.edu.ifsp.eventos.classes.Palestrante"%>
+<%
+    try {
+        long id = Long.parseLong(request.getParameter("id"));
+        Palestrante palestrante = Palestrante.getPalestrantePorID(id);%>
+
+<div class="conteudo">
+    <div class="pPalestrante">
+
+
+        <img title="<%= palestrante.getNome()%>" alt="<%= palestrante.getNome()%>" src="img?c=palestrante&id=<%= palestrante.getId()%>&sx=200&sy=120" />
+        <div class="p">
+            <h2><%= palestrante.getNome()%></h2>    
+            <p>
+                <%= palestrante.getDescricao().equals("") ? "Nenhuma descrição para este palestrante." : palestrante.getDescricao()%>            
+            </p>
+            <h3>Eventos:</h3>
+            <ul>
+                <% ArrayList<Evento> listaEventos = new PalestranteDAO().listarEventos(palestrante);
+            for (Evento ev : listaEventos) {%>
+
+                <li>
+                    <strong><%= ev.getNome()%></strong> (dia <%=  ev.getDataSdf() + " às " + ev.getHorarioSdf()%>)<br />                
+                    <span><%= ev.getDescricao()%></span>
+                </li>
+
+                <% }%>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<% } catch (Exception ex) {
+    }%>

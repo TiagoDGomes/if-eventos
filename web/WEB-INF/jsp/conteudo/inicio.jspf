@@ -1,0 +1,19 @@
+﻿
+<div id="paginaInicial" class="conteudo">
+    
+    <div class="eventoMestre noticia">
+        <h2>V Semana de Tecnologia</h2>
+        <img class="imagem" src="/eventos/imagens/leopard.jpg" alt="Evento" />
+        <p class="descricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Aliquam fringilla pharetra convallis. 
+            Vestibulum blandit ornare tortor ac hendrerit. Aenean interdum volutpat commodo. 
+            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+            Morbi consectetur, nunc a eleifend egestas, magna velit rhoncus quam, non accumsan odio dolor sed quam.
+            Sed quam ligula, tincidunt a dictum a, euismod et metus. Curabitur id bibendum felis. 
+            Sed accumsan fringilla commodo.</p>
+        <p>Clique <a href="?pagina=eventos">aqui</a> para ver a lista de eventos disponíveis.</p>
+    </div>
+    <div class="noticia">
+        <img src="http://189.108.236.229/internet/templates/js_jamba/images/style1/logocompletosbv.png" alt="Instituto Federal" />
+    </div>
+</div>

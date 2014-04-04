@@ -1,0 +1,445 @@
+
+a{
+    text-decoration: none;
+    color: blue;
+}
+a:hover{
+    text-decoration: underline;
+}
+#mainLogo,#conteudo, input[type="text"],input[type="password"], textarea, select{
+    border:1px solid yellowgreen;
+    background-color: white;
+}
+body, input,select, textarea{
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    font-size: 11px;
+
+}
+
+body ,.menu{
+    min-width: 800px;
+}
+body {
+    line-height: 1.28;
+    text-align: left;
+    direction: ltr;
+    margin: 0 auto;
+    background-color: rgb(217,253,176);
+    padding: 5px;
+    /* overflow-x: hidden*/
+
+}
+.eventosDia .cabecalho h2 {
+    background-color: #F2F2F2;
+    border-bottom: none;
+    border-top: solid 1px #E2E2E2;
+    padding: 4px 6px 5px;
+    font-weight: bold;
+    height: 14px;
+    font-size: 1em;
+}
+.evento h3 {
+    margin-bottom: 0;
+}
+
+.evento{
+    clear: both;
+}
+#mainLogo , #mainLogo h1{
+    height:78px;
+}
+#mainLogo {
+    background-color: #316B16;
+    background-image: url(/eventos/templates/greenbook/images/bg_titulo.png);
+    background-repeat: repeat-x;
+    color: white;
+}
+#mainLogo h1{
+    background-image: url(/eventos/imagens/ifsp-mini.png);
+    background-repeat: no-repeat;font-size: 1em;
+    margin-top:0;
+    padding-left: 85px;
+    padding-top: 2px;
+    color:white;
+    float:left;
+
+    display: inline-block;
+    font-family: arial, helvetica, sans-serif;
+    text-transform: uppercase;
+}
+#mainLogo .campus,#mainLogo .tituloSite{
+    text-transform: none;
+}
+#mainLogo .tituloSite{
+    display: block;
+    padding-top: 12px;
+    color:white;
+    font-size: 1.2em;
+    float: left;
+    text-shadow: 1px 1px #aeaeae;
+
+}
+#mainLogo h1 , .login{
+    text-shadow: 1px 1px black;
+}
+.login a{
+    color: #0077ff
+}
+.login{
+    float: right;
+}
+.login .item {
+    color: white;
+    display: inline;
+    float: left;
+    margin-right: 3px;
+}
+.login .button{
+    margin-top: 16px;
+}
+.button {
+    background: none;
+    color: white;
+    cursor: pointer;
+    font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    background-repeat: no-repeat;
+    background-position: -352px -54px;
+    background-color: green;
+    border: 1px solid #81AB66;
+    border-color: #81AB66 #316B16 #316B16 #81AB66;
+
+}
+.button:active{
+    background-color: #009933;
+
+}
+
+address {
+    border: 1px solid silver;
+    text-align: center;
+    font-style: normal;
+    margin-top: 15px;
+    background-color: white;
+    padding: 8px;
+    clear: both;
+}
+
+#mainMenu li{
+    list-style: none;
+    display: inline;
+
+}
+#mainMenu ul {
+    margin: 0 auto;
+    float: left;
+
+}
+#mainMenu .menuInscrito{
+    margin-left: -40px;
+}
+#mainMenu {
+    margin-top: -28px;
+    left: 20px;
+    position: absolute;
+    margin-left: 200px;
+}
+.menu li a{
+    float: left;
+    width:100px;
+    text-shadow: inherit;
+    text-decoration:none;
+    color: white;
+    font-weight: bold;
+    /*background-color: #81AB66;*/
+    /*border-top: 1px solid #DAE4C1;
+    border-bottom: 1px solid #DAE4C1;
+    border-left: 1px solid #ededed;
+    border-right: 1px solid #aeaeae; */
+    padding:0.5em  0 0.6em  0;
+    text-align: center;
+    /*border: 1px solid  #316B16;*/
+
+
+}
+
+.menu li a:hover , .mainEventos  {
+    /*background-image: url(/eventos/templates/greenbook/images/bg_menuitem.png);
+    background-repeat: repeat-x;*/
+    background-color: #417B26;
+
+}
+.menu .selecionado a,.menu .selecionado a:hover, .menu li a:active{
+    background-color: #619B46;
+}
+#busca {
+    float:right;
+    margin-top: -28px;
+    margin-right: 6px;
+    color: white;
+}
+#conteudo{
+    padding:  5px;
+    clear: both;
+    display: block;
+    margin: 0 auto;
+    text-align: justify;
+    background-color: white;
+}
+
+#paginaInicial {
+    min-height: 500px;
+}
+
+#paginaInicial .noticia {
+    padding: 8px;
+    font-size: 1.4em;
+    float: left;
+    margin-bottom: 10px;
+}
+#paginaInicial .eventoMestre {
+    float: none; 
+    min-height: 320px;
+    background-image: url(/eventos/templates/greenbook/images/bg_gradient_green.png);
+    background-repeat: no-repeat;
+
+}
+
+#paginaInicial .eventoMestre .imagem {
+    float: right;
+    height: 250px;
+    margin-left: 15px;
+    border:1px solid yellowgreen; 
+
+}
+#paginaInicial .noticia{
+    clear: both;
+}
+
+
+#mainCadastro, .formulario {
+    margin: 0 auto;
+    width: 600px;
+}
+.formulario label{
+    cursor: pointer;
+    width: 100px;
+    float: left;
+    vertical-align: middle;
+    padding: 3px 6px 0 0;
+
+}
+.formulario label ,  .formulario input, .formulario textarea, .formulario select{
+    font-size: 13px;
+    margin-bottom: 10px;
+
+}
+.formulario .info {
+    margin-bottom: 10px;
+}
+
+.conteudo{
+    width:780px;
+    margin: 0 auto;
+    min-height: 300px;
+}
+
+#conteudo .eventoItem {
+    clear: both;
+}
+#conteudo .eventoItem .imagem {
+    float: left;
+    height: 180px;
+    width:180px;    
+    margin-right: 5px;
+    background-image: url(/eventos/templates/greenbook/images/bg_evento.png);
+    background-repeat: no-repeat;    
+}
+#conteudo .eventoItem h3{
+    border-bottom: 1px solid green;
+}
+#conteudo .eventoItem .imagem img{
+    height: 106px;
+    width: 148px;
+    margin: 15px 0 0 15px;
+}
+#conteudo .eventoItem{
+    min-height: 200px;
+
+}
+#conteudo .eventoItem .detalhes{
+    margin-left: 190px;
+}
+#conteudo .eventoItem p{
+    line-height:0.7em;
+}
+#mainLocalizacao iframe {
+    width: 100%;
+    min-height:  600px;
+}
+table.lista {
+    font-size: 1.2em;
+
+}
+table.lista th{
+    text-align: center;
+}
+table.lista .acao,table.lista .numero {
+    text-align: center
+
+}
+.adminCad .cad, table.lista {
+    border: 1px solid silver;
+}
+table.lista td{
+    margin: 0;
+    padding: 3px;
+    border: 1px solid silver;
+    background-color: white
+}
+.adminCad {
+
+}
+.adminCad .cad{
+    padding: 8px;
+    min-height:500px;
+    width: 700px;
+}
+
+.adLst, .adLst ul, .tool ul{
+    list-style-type: none;
+    margin-left:-20px;
+}
+.adLst, .tool ul{
+    margin-left:-40px;
+}
+.adLst{
+    float:left;
+    font-size: 1.1em;
+
+}
+.cad{
+    margin-bottom: 6px;
+    background-color: #F6FFED;
+    margin-left:150px
+}
+.cad h3{
+    background-image: url(/eventos/templates/greenbook/images/bg_h.png);
+    background-repeat: repeat-x;
+    height: 25px;
+    margin-left:-8px;
+    margin-top:-8px;
+    width: 698px;
+
+    padding: 3px 0 0 18px;
+    vertical-align: middle;
+
+}
+.mensagemErro .titulo {
+    font-weight: bold;
+}
+
+.mensagemErro{
+    background-color: #ffff99;
+    border: 1px solid black;
+    padding: 15px 15px 15px 70px;
+    background-image: url('/eventos/templates/greenbook/images/msg_stop.png');
+    background-repeat: no-repeat;
+    background-size: 55px 55px ;
+
+    background-position:  10px 10px 10px 25px;
+
+}
+
+.mensagemErro .fechar{
+    float:right
+}
+
+.tool{
+    background-image: url('/eventos/templates/greenbook/images/tool.png');
+    min-height: 80px;
+    min-width: 100px;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    padding-left: 90px;
+    font-size: 1em;
+
+}
+.toolInst{
+    background-image: url('/eventos/templates/greenbook/images/inst.png');
+
+}.toolPal{
+    background-image: url('/eventos/templates/greenbook/images/palest.png');
+
+}.toolEv{
+    background-image: url('/eventos/templates/greenbook/images/calendar-icon.png');
+
+}
+.tool h4{
+    margin-bottom: 2px;
+    font-size: 1.4em;
+    font-weight: normal;
+}
+.tool h4 a{
+
+    color: green;
+}
+
+.tool ul {
+    margin-top: 2px;
+}
+.cad .formulario label{
+    text-align: right;
+    font-size: 1em;
+    font-weight: bold;    
+    color: #666;
+
+}
+
+.navEv{
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+.navEv a{
+    border: 1px solid green;
+    padding: 3px 5px 3px 5px;
+    background-color: #ddffdd;
+}
+
+#mensagemErroTop {
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    margin-left: -250px;
+    top: 60px;
+    z-index: 1;
+    display: none;
+
+}
+.linkParticipar a{
+    color: #6b84f4;
+
+}
+.quemVai{
+    background-color: #eeeeee;
+    padding: 5px 0 5px 12px;
+}
+.conteudo .pPalestrante img{
+    float: left;
+    border: 1px solid green;
+    margin: 0 10px 10px 5px;
+    padding: 5px;
+    width: 150px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.conteudo .pPalestrante h2{
+    border-bottom:  1px solid green
+}
+.conteudo .pPalestrante .p{
+    margin-left: 180px;
+}
